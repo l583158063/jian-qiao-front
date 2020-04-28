@@ -149,11 +149,20 @@ fi
 rm -rf ./html
 cp -r ./dist ./html
 
+# export BUILD_BASE_PATH=/
+# export BUILD_API_HOST=http://backend.jd1.jajabjbj.top
+# export BUILD_CLIENT_ID=localhost
+# export BUILD_WFP_EDITOR=""
+# export BUILD_WEBSOCKET_HOST=ws://ws.jd1.jajabjbj.top
+# export BUILD_PLATFORM_VERSION=SAAS
+# export BUILD_BPM_HOST=http://bpm.jd1.jajabjbj.top
+# export BUILD_IM_ENABLE=false
+# export BUILD_IM_WEBSOCKET_HOST=ws://im.ws.jd1.jajabjbj.top
 export BUILD_BASE_PATH=/
-export BUILD_API_HOST=http://backend.jd1.jajabjbj.top
+export BUILD_API_HOST=http://dev.hzero.org:8080
 export BUILD_CLIENT_ID=localhost
 export BUILD_WFP_EDITOR=""
-export BUILD_WEBSOCKET_HOST=ws://ws.jd1.jajabjbj.top
+export BUILD_WEBSOCKET_HOST=ws://dev.hzero.org:8080/hpfm/websocket
 export BUILD_PLATFORM_VERSION=SAAS
 export BUILD_BPM_HOST=http://bpm.jd1.jajabjbj.top
 export BUILD_IM_ENABLE=false
