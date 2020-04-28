@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 `hzero-front-demo`
 
 ---
@@ -368,3 +369,7 @@ export default HelloWorldPage;
   <span class="test-cls2">test-cls2</span>
 </p>
 ``` 
+=======
+# jian-qiao-front
+水果商城中台前端
+>>>>>>> 7c4e02ccd2e11f64a27dabcd40c919329910a5fe
