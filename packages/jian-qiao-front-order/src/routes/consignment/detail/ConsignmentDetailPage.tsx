@@ -3,18 +3,18 @@ import { Header, Content } from 'components/Page';
 import { Dispatch } from 'redux';
 import { connect } from 'dva';
 
-interface ProductSpuListPageProps {
+interface ConsignmentDetailPageProps {
   dispatch: Dispatch<any>;
 }
 
 @connect()
-export default class ProductSpuListPage extends Component<ProductSpuListPageProps> {
+export default class ConsignmentDetailPage extends Component<ConsignmentDetailPageProps> {
   render() {
     return (
       <>
-        <Header title='商品SPU列表' />
+        <Header title='ConsignmentDetailPage' />
         <Content>
-          <p>Hello ProductSpuList</p>
+          <p>Hello ConsignmentDetail</p>
         </Content>
       </>
     );

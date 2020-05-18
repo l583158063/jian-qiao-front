@@ -32,6 +32,7 @@ const config: RoutersConfig = [
       },
     ],
   },
+
 ];
 
 export default config;
