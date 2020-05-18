@@ -1,6 +1,15 @@
 {
   "packages": [
     {
+      "name": "jian-qiao-front-fulfilment"
+    },
+    {
+      "name": "jian-qiao-front-order"
+    },
+    {
+      "name": "jian-qiao-front-product"
+    },
+    {
       "name": "jian-qiao-front-test-module"
     }
   ]

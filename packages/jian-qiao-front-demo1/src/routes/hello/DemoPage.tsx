@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Header, Content } from 'components/Page';
-import { DataSet, Table, Button, SelectBox } from 'choerodon-ui/pro';
+import { DataSet, Table, Button, Lov, Tooltip, SelectBox, Form, Modal } from 'choerodon-ui/pro';
 import { ButtonColor } from 'choerodon-ui/pro/lib/button/enum';
 import { TableButtonType } from 'choerodon-ui/pro/lib/table/enum';
 import { Buttons } from 'choerodon-ui/pro/lib/table/Table';
@@ -14,6 +14,8 @@ import { DataSetSelection, FieldType, FieldIgnore } from 'choerodon-ui/pro/lib/d
 import { AxiosRequestConfig } from 'axios';
 import { ViewMode } from 'choerodon-ui/pro/lib/radio/enum';
 import styles from './style.module.less';
+import { filterBindField } from 'choerodon-ui/pro/lib/table/query-bar/TableToolBar';
+import { Bind } from 'lodash-decorators';
 
 const todoTableDataFactory = () => new DataSet({
   autoQuery: true,
@@ -160,7 +162,8 @@ const todoTableDataFactory = () => new DataSet({
 
 const HelloWorldPage: React.FC = () => {
 
-  const tableDS = useDataSet(todoTableDataFactory, HelloWorldPage);
+  // const tableDS = useDataSet(todoTableDataFactory, HelloWorldPage);
+  const tableDS = todoTableDataFactory();
   const currentPage = useDataSetCurrentPage(tableDS);
   const isSelected = useDataSetIsSelected(tableDS);
   useDataSetEvent(tableDS, 'load', () => {
@@ -168,21 +171,66 @@ const HelloWorldPage: React.FC = () => {
     console.log('数据加载完成！');
   });
 
+  // 定义 Table 需要展示的列
   const columns: ColumnProps[] = [
     { name: 'taskNumber', width: 320, editor: true },
     { name: 'taskDescription', editor: true },
     { name: 'state', editor: true },
     { name: 'employeeObject', editor: true },
+    {
+      header: '自定义操作',
+      width: 150,
+      command: ({ record }) => {
+        const state = record.get('state');
+        return [
+          TableButtonType.delete,
+          <Button
+            key="delete-value"
+            icon="delete"
+            color="red"
+            funcType="flat"
+            onClick={() => tableDS.remove(record)}
+          />,
+          <Tooltip title="撤回">
+            <Button
+              key="replay"
+              icon="replay"
+              title="abcd"
+              disabled={state !== 'CODE_3'}
+              funcType="flat"
+              onClick={() => handleReStart([record])}
+            />
+          </Tooltip>
+        ]
+      }
+    }
   ];
 
+  // 定义 Table 表头按钮
   const buttons = [
     TableButtonType.add,
     'delete' as Buttons,
+    <Button
+      key="create-field"
+      icon="playlist_add"
+      color="primary"
+      funcType="flat"
+      onClick={() => { addLine() }}
+    >
+      自定义
+    </Button>,
   ];
+
+  const addLine = () => {
+    tableDS.create({}, 0);
+  }
 
   return (
     <>
+      {/* 页面头部标题 */}
       <Header title='Hello World'>
+        {/* DataSet 主按钮：提交 */}
+        {/* onClick 可调用自定义的 submit 函数先校验后提交 */}
         <Button
           color={'primary' as ButtonColor}
           onClick={() => tableDS.submit()}
