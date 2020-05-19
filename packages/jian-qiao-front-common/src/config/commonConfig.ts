@@ -1,65 +1,69 @@
 
-  import {
-    API_HOST,
-    CLIENT_ID,
-    BPM_HOST,
-    WFP_EDITOR,
-    WEBSOCKET_URL,
-    IM_ENABLE,
-    CUSTOMIZE_ICON_NAME,
-    HZERO_PLATFORM,
-    HZERO_IAM,
-    HZERO_DTT,
-    HZERO_MSG,
-    HZERO_PTL,
-    HZERO_WFL,
-    HZERO_DTW,
-    HZERO_HDTW,
-    HZERO_SDR,
-    HZERO_HSGP,
-    HZERO_HITF,
-    HZERO_HFLE,
-    HZERO_OAUTH,
-    HZERO_ASGARD,
-    HZERO_IMP,
-    HZERO_RPT,
-    HZERO_HCNF,
-    HZERO_HWFP,
-    HZERO_FILE,
-    HZERO_NLP,
-    HZERO_HPAY,
-    HZERO_HEXL,
-    HZERO_MNT,
-    HZERO_INVOICE,
-    HZERO_IM,
-    HZERO_OCR,
-    HZERO_CHG,
-    HZERO_ADM,
-    HZERO_DPM,
-    HZERO_HSRH,
-    HZERO_HRES,
-    HZERO_HLCD,
-    AUTH_HOST,
-    LOGIN_URL,
-    LOGOUT_URL,
-    AUTH_SELF_URL,
-    VERSION_IS_OP,
-    BKT_PUBLIC,
-    BKT_PLATFORM,
-    BKT_MSG,
-    BKT_SDR,
-    BKT_RPT,
-    BKT_INVOICE,
-    BKT_OCR,
-    BKT_ADM,
-    BKT_HWFP,
-    BKT_HITF,
-  } from 'hzero-front/lib/utils/config';
+import {
+  API_HOST,
+  CLIENT_ID,
+  BPM_HOST,
+  WFP_EDITOR,
+  WEBSOCKET_URL,
+  IM_ENABLE,
+  CUSTOMIZE_ICON_NAME,
+  HZERO_PLATFORM,
+  HZERO_IAM,
+  HZERO_DTT,
+  HZERO_MSG,
+  HZERO_PTL,
+  HZERO_WFL,
+  HZERO_DTW,
+  HZERO_HDTW,
+  HZERO_SDR,
+  HZERO_HSGP,
+  HZERO_HITF,
+  HZERO_HFLE,
+  HZERO_OAUTH,
+  HZERO_ASGARD,
+  HZERO_IMP,
+  HZERO_RPT,
+  HZERO_HCNF,
+  HZERO_HWFP,
+  HZERO_FILE,
+  HZERO_NLP,
+  HZERO_HPAY,
+  HZERO_HEXL,
+  HZERO_MNT,
+  HZERO_INVOICE,
+  HZERO_IM,
+  HZERO_OCR,
+  HZERO_CHG,
+  HZERO_ADM,
+  HZERO_DPM,
+  HZERO_HSRH,
+  HZERO_HRES,
+  HZERO_HLCD,
+  AUTH_HOST,
+  LOGIN_URL,
+  LOGOUT_URL,
+  AUTH_SELF_URL,
+  VERSION_IS_OP,
+  BKT_PUBLIC,
+  BKT_PLATFORM,
+  BKT_MSG,
+  BKT_SDR,
+  BKT_RPT,
+  BKT_INVOICE,
+  BKT_OCR,
+  BKT_ADM,
+  BKT_HWFP,
+  BKT_HITF,
+} from 'hzero-front/lib/utils/config';
 
 
 export class ConfigProps {
 
   // 自定义接口前缀配置
+  /**
+     * Backend 模块前缀
+     */
+  HJQG_BACKEND: string = '/backend';
 
   /**
    * Todo 模块的 API 前缀
@@ -71,7 +75,7 @@ export class ConfigProps {
 
   // 公用 Hzero 模块 API 前缀配置
 
-  
+
 
   /**
    * 后端网关地址
@@ -141,7 +145,7 @@ export class ConfigProps {
   BKT_HWFP: string = BKT_HWFP;
   BKT_HITF: string = BKT_HITF;
 
-  
+
 }
 
 type ConfigKey = keyof ConfigProps;
@@ -149,7 +153,7 @@ type ConfigKey = keyof ConfigProps;
 const HZERO_CONFIG_STORE = '_HZERO_CONFIG_STORE';
 
 export const getConfigStore = (): ConfigProps => {
-  if(!(window as any)[HZERO_CONFIG_STORE]) {
+  if (!(window as any)[HZERO_CONFIG_STORE]) {
     ((window as any)[HZERO_CONFIG_STORE] as ConfigProps) = new ConfigProps();
   }
   return (window as any)[HZERO_CONFIG_STORE];
@@ -159,6 +163,6 @@ export const getConfig = (key: ConfigKey): string => {
   return getConfigStore()[key];
 }
 
-const commonConfigStore: ConfigProps  = getConfigStore();
+const commonConfigStore: ConfigProps = getConfigStore();
 
 export default commonConfigStore;

@@ -1,7 +1,9 @@
+import categoryManageRouterConfig from '../routes/category-manage/routers';
 import { RoutersConfig } from 'hzero-boot/lib/typings/IRouterConfig';
 
 const config: RoutersConfig = [
   // Insert New Router
+  ...categoryManageRouterConfig,
 
   // product-sku
   {
