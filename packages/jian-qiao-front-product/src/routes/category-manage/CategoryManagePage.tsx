@@ -19,7 +19,7 @@ interface CategoryManagePageProps {
 @connect()
 export default class CategoryManagePage extends Component<CategoryManagePageProps> {
   state = {};
-  
+
   tableDS = new DataSet({
     ...CategoryDS(),
   });
@@ -30,13 +30,13 @@ export default class CategoryManagePage extends Component<CategoryManagePageProp
       TableButtonType.delete,
     ];
   }
-  
+
 
   get columns(): ColumnProps[] {
     return [
-      { name: 'categoryCode', width: 320, editor: true,},
+      { name: 'categoryCode', width: 320, editor: true, },
       { name: 'categoryName', editor: true, },
-      { name: 'isActive', editor: true, align: ColumnAlign.center},
+      { name: 'isActive', editor: true, align: ColumnAlign.center },
     ];
   }
 
@@ -65,12 +65,12 @@ export default class CategoryManagePage extends Component<CategoryManagePageProp
       await this.tableDS.query();
     }
   }
-  
+
   render() {
     return (
       <>
         <Header title='商品目录管理' >
-          <Button 
+          <Button
             color={ButtonColor.primary}
             onClick={() => this.submit()}
           >
@@ -87,7 +87,7 @@ export default class CategoryManagePage extends Component<CategoryManagePageProp
               showQuickJumper: true,
             }}
           />
-          
+
         </Content>
       </>
     );
