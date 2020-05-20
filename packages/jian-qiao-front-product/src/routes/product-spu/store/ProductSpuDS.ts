@@ -1,10 +1,13 @@
 import commonConfig from '@common/config/commonConfig';
+import { DataSetProps } from 'choerodon-ui/pro/lib/data-set/DataSet';
+import { AxiosRequestConfig } from 'axios';
+import { FieldType, DataSetSelection, FieldIgnore } from 'choerodon-ui/pro/lib/data-set/enum';
 
-export default () => ({
+export default (): DataSetProps => ({
   transport: {
-    read: config => {
+    read: (config): AxiosRequestConfig => {
       const url = `${commonConfig.HJQG_BACKEND}/v1/product-spus`;
-      const axiosConfig = {
+      const axiosConfig: AxiosRequestConfig = {
         ...config,
         url,
         method: 'GET',
@@ -13,7 +16,7 @@ export default () => ({
     },
     submit: ({ data, params }) => {
       const url = `${commonConfig.HJQG_BACKEND}/v1/product-spus/submit`;
-      const axiosConfig = {
+      const axiosConfig: AxiosRequestConfig = {
         url,
         data,
         params,
@@ -23,19 +26,19 @@ export default () => ({
     },
   },
   pageSize: 10,
-  selection: 'multiple',
+  selection: DataSetSelection.multiple,
   primaryKey: 'productSpuId',
   fields: [
     // 列表显示字段
     {
       name: 'productSpuId',
       label: 'spuId',
-      type: 'number',
+      type: 'number' as FieldType,
     },
     {
       name: 'productSpuCode',
       label: 'spu编码',
-      type: 'string',
+      type: 'string' as FieldType,
       required: true,
       pattern: /^[\dA-Z]*$/,
       defaultValidationMessages: {
@@ -45,41 +48,41 @@ export default () => ({
     {
       name: 'categoryObject',
       label: '商品类型',
-      type: 'object',
+      type: 'object' as FieldType,
       lovCode: 'JIANQIAO.PRODUCT_CATEGORY',
-      ignore: 'always',
+      ignore: 'always' as FieldIgnore,
       required: true,
     },
     {
       name: 'categoryId',
       label: '商品类型ID',
-      type: 'number',
+      type: 'number' as FieldType,
       bind: 'categoryObject.categoryId',
     },
     {
       name: 'categoryCode',
       label: '商品类型编码',
-      type: 'string',
+      type: 'string' as FieldType,
       bind: 'categoryObject.categoryCode',
-      ignore: 'always',
+      ignore: 'always' as FieldIgnore,
     },
     {
       name: 'categoryName',
       label: '商品类型名称',
-      type: 'string',
+      type: 'string' as FieldType,
       bind: 'categoryObject.categoryName',
-      ignore: 'always',
+      ignore: 'always' as FieldIgnore,
     },
     {
       name: 'title',
       label: 'spu名称',
-      type: 'string',
+      type: 'string' as FieldType,
       required: true,
     },
     {
       name: 'postStatusCode',
       label: '发布状态',
-      type: 'string',
+      type: 'string' as FieldType,
       required: true,
       defaultValue: 'PENDING',
       lookupCode: 'JIANQIAO.PRODUCT_POST_STATUS',
@@ -87,7 +90,7 @@ export default () => ({
     {
       name: 'shelfStatus',
       label: '上下架状态',
-      type: 'string',
+      type: 'string' as FieldType,
       required: true,
       defaultValue: 'PENDING',
       lookupCode: 'JIANQIAO.PRODUCT_SHELF_STATUS',
@@ -95,59 +98,59 @@ export default () => ({
     {
       name: 'salesVolume',
       label: '销量/元',
-      type: 'number',
+      type: 'number' as FieldType,
       defaultValue: 0,
     },
     {
       name: 'customerGrade',
       label: '买家评分',
-      type: 'number',
+      type: 'number' as FieldType,
     },
     // 剩余字段
     {
       name: 'taxRate',
       label: '税率',
-      type: 'number',
+      type: 'number' as FieldType,
     },
     {
       name: 'orderSeq',
       label: '排序权重',
-      type: 'number',
+      type: 'number' as FieldType,
       defaultValue: 20,
     },
     {
       name: 'isEnableExpressed',
       label: '是否支持快递配送',
-      type: 'number',
+      type: 'number' as FieldType,
       defaultValue: 1,
       lookupCode: 'HPFM.FLAG',
     },
     {
       name: 'isEnablePickedUp',
       label: '是否支持自提',
-      type: 'number',
+      type: 'number' as FieldType,
       defaultValue: 0,
       lookupCode: 'HPFM.FLAG',
     },
     {
       name: 'description',
       label: '商品描述',
-      type: 'string',
+      type: 'string' as FieldType,
     },
     {
       name: 'recommendation',
       label: '推荐语',
-      type: 'string',
+      type: 'string' as FieldType,
     },
     {
       name: 'keyWords',
       label: '关键字',
-      type: 'string',
+      type: 'string' as FieldType,
     },
     {
       name: 'isStopSelling',
       label: '是否停止销售',
-      type: 'number',
+      type: 'number' as FieldType,
       defaultValue: 0,
       lookupCode: 'HPFM.FLAG',
     },
@@ -156,32 +159,32 @@ export default () => ({
     {
       name: 'productSpuCode',
       label: 'spu编码',
-      type: 'string',
+      type: 'string' as FieldType,
     },
     {
       name: 'title',
       label: 'spu名称',
-      type: 'string',
+      type: 'string' as FieldType,
     },
     {
       name: 'shelfStatus',
       label: '上下架状态',
-      type: 'string',
+      type: 'string' as FieldType,
       lookupCode: 'JIANQIAO.PRODUCT_SHELF_STATUS',
     },
     {
       name: 'categoryObject',
       label: '商品类型',
-      type: 'object',
+      type: 'object' as FieldType,
       lovCode: 'JIANQIAO.PRODUCT_CATEGORY',
       textField: 'categoryName',
       valueField: 'categoryId',
-      ignore: 'always',
+      ignore: 'always' as FieldIgnore,
     },
     {
       name: 'categoryId',
       label: '商品类型ID',
-      type: 'number',
+      type: 'number' as FieldType,
       bind: 'categoryObject.categoryId',
     },
   ],
