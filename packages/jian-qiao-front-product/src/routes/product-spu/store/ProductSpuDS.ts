@@ -44,6 +44,13 @@ export default (): DataSetProps => ({
       defaultValidationMessages: {
         patternMismatch: '只能输入大写字母和数字, 例如: AB0001', // 正则不匹配的报错信息
       },
+      dynamicProps: {
+        // 非新增行要设置为只读
+        readOnly: ({ record }) => {
+          //   return record.get('id');
+          return record.status !== 'add';
+        },
+      },
     },
     {
       name: 'categoryObject',

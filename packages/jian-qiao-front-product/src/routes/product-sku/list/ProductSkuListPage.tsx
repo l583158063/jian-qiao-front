@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Content } from 'components/Page';
+import { Header, Content, } from 'components/Page';
 import { Dispatch } from 'redux';
 import { connect } from 'dva';
 import { DataSet, Table, Button, Lov, } from "choerodon-ui/pro";
@@ -10,6 +10,7 @@ import { TableButtonType, ColumnLock, ColumnAlign, } from 'choerodon-ui/pro/lib/
 import { Bind } from 'lodash-decorators';
 import notification from 'utils/notification';
 import { routerRedux } from 'dva/router';
+import { ButtonColor, } from 'choerodon-ui/pro/lib/button/enum';
 
 interface ProductSkuListPageProps {
   dispatch: Dispatch<any>;
@@ -92,15 +93,23 @@ export default class ProductSkuListPage extends Component<ProductSkuListPageProp
         editor: () => <Lov noCache />,
       },
       { name: 'shelfStatus', align: ColumnAlign.center },
+      { name: 'price', editor: true, align: ColumnAlign.center, },
+      { name: 'stockLevel', editor: true, align: ColumnAlign.center, },
       { name: 'statusCode', editor: true, align: ColumnAlign.center },
-      { name: 'isExistStock', align: ColumnAlign.right, },
     ];
   }
 
   render() {
     return (
       <>
-        <Header title='ProductSkuListPage' />
+        <Header title='商品SKU列表' >
+          <Button
+            color={ButtonColor.primary}
+            onClick={() => this.submit()}
+          >
+            提交
+          </Button>
+        </Header>
         <Content>
           <Table
             queryFieldsLimit={4}
