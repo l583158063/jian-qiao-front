@@ -3,7 +3,7 @@ import { Header, Content } from 'components/Page';
 import { Dispatch } from 'redux';
 import { connect } from 'dva';
 import ProductSpuDS from '../store/ProductSpuDS';
-import { DataSet, Form, TextField, Button, notification, Lov, Select } from 'choerodon-ui/pro';
+import { DataSet, Form, TextField, Button, notification, Lov, Select, DateTimePicker } from 'choerodon-ui/pro';
 import { ButtonColor } from 'choerodon-ui/pro/lib/button/enum';
 import { Bind } from 'lodash-decorators';
 // import notification from 'utils/notification';
@@ -88,6 +88,8 @@ export default class ProductSpuDetailPage extends Component<ProductSpuDetailPage
             <TextField name="recommendation" />
             <TextField name="keyWords" />
             <Select name="isStopSelling" />
+            <DateTimePicker pristine name="onlineDate" />
+            <DateTimePicker pristine name="offlineDate" />
           </Form>
         </Content>
       </>

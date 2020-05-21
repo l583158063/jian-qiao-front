@@ -5,7 +5,7 @@ import { FieldType, DataSetSelection, FieldIgnore } from 'choerodon-ui/pro/lib/d
 
 export default (): DataSetProps => ({
   transport: {
-    read: (config): AxiosRequestConfig => {
+    read: (config: AxiosRequestConfig) => {
       const url = `${commonConfig.HJQG_BACKEND}/v1/product-spus`;
       const axiosConfig: AxiosRequestConfig = {
         ...config,
@@ -153,6 +153,16 @@ export default (): DataSetProps => ({
       type: 'number' as FieldType,
       defaultValue: 0,
       lookupCode: 'HPFM.FLAG',
+    },
+    {
+      name: 'onlineDate',
+      label: '上架日期',
+      type: 'dateTime' as FieldType,
+    },
+    {
+      name: 'offlineDate',
+      label: '下架日期',
+      type: 'dateTime' as FieldType,
     },
   ],
   queryFields: [
