@@ -234,7 +234,7 @@ export default class ProductSpuListPage extends Component<ProductSpuListPageProp
         </Header>
         <Content>
           <Table
-            queryFieldsLimit={3}
+            queryFieldsLimit={4}
             dataSet={this.tableDS}
             buttons={this.buttons}
             columns={this.columns}
