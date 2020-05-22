@@ -3,20 +3,32 @@ import { Header, Content } from 'components/Page';
 import { Dispatch } from 'redux';
 import { connect } from 'dva';
 import ProductSpuDS from '../store/ProductSpuDS';
-import { DataSet, Form, TextField, Button, notification, Lov, Select, DateTimePicker } from 'choerodon-ui/pro';
-import { ButtonColor } from 'choerodon-ui/pro/lib/button/enum';
+import AttributeDS from '../../product-attribute/store/SpuAttribute'
+import { DataSet, Form, TextField, Button, Lov, Select, DateTimePicker, Table } from 'choerodon-ui/pro';
+import { ButtonColor, FuncType } from 'choerodon-ui/pro/lib/button/enum';
 import { Bind } from 'lodash-decorators';
-// import notification from 'utils/notification';
+import { TableButtonType, ColumnAlign } from 'choerodon-ui/pro/lib/table/enum';
+import { ColumnProps } from 'choerodon-ui/pro/lib/table/Column';
+import { yesOrNoRender } from 'utils/renderer';
+import notification from 'utils/notification';
 
 
 interface ProductSpuDetailPageProps {
   dispatch: Dispatch<any>;
   match: any;
+  location: any;
 }
 
 @connect()
 export default class ProductSpuDetailPage extends Component<ProductSpuDetailPageProps> {
   state = {};
+
+  productSpuId: any;
+
+  attributeDS = new DataSet({
+    autoQuery: false,
+    ...AttributeDS(),
+  });
 
   detailDS = new DataSet({
     autoQuery: false,
@@ -25,7 +37,12 @@ export default class ProductSpuDetailPage extends Component<ProductSpuDetailPage
 
   async componentDidMount() {
     this.detailDS.queryParameter['productSpuCode'] = this.props.match.params.productSpuCode;
+    this.productSpuId = new URLSearchParams(this.props.location.search).get('productSpuId');
+    this.attributeDS.queryParameter = {
+      productSpuId: this.productSpuId,
+    }
     await this.detailDS.query();
+    await this.attributeDS.query();
   }
 
   @Bind()
@@ -55,6 +72,32 @@ export default class ProductSpuDetailPage extends Component<ProductSpuDetailPage
     return res;
   }
 
+  get columns(): ColumnProps[] {
+    return [
+      { name: 'attributeCode', editor: true, },
+      { name: 'attributeName', editor: true, },
+      { name: 'attributeValue', editor: true, },
+      {
+        name: 'isEnabled',
+        editor: true,
+        renderer: ({ value }) => yesOrNoRender(value),
+        align: ColumnAlign.center,
+      },
+      { name: 'orderSeq', editor: true, align: ColumnAlign.center, },
+      { name: 'remark', editor: true, },
+    ];
+  }
+
+  @Bind()
+  async handleAttributeSave() {
+    // 为所有记录添加 spuId
+    this.attributeDS.forEach(record => record.set('productSpuId', this.productSpuId));
+
+    await this.attributeDS.submit();
+
+    await this.attributeDS.query();
+  }
+
   render() {
     return (
       <>
@@ -79,6 +122,7 @@ export default class ProductSpuDetailPage extends Component<ProductSpuDetailPage
             <Select name="postStatusCode" />
             <Select name="shelfStatus" />
             <TextField pristine name="salesVolume" />
+            <TextField pristine name="priceRange" />
             <TextField pristine name="customerGrade" />
             <TextField name="taxRate" />
             <TextField name="orderSeq" />
@@ -86,11 +130,28 @@ export default class ProductSpuDetailPage extends Component<ProductSpuDetailPage
             <Select name="isEnablePickedUp" />
             <TextField name="description" />
             <TextField name="recommendation" />
-            <TextField name="keyWords" />
+            {/* <TextField name="keyWords" /> */}
             <Select name="isStopSelling" />
             <DateTimePicker pristine name="onlineDate" />
             <DateTimePicker pristine name="offlineDate" />
           </Form>
+          <Table
+            dataSet={this.attributeDS}
+            buttons={[
+              TableButtonType.add,
+              TableButtonType.delete,
+              <Button
+                key="attribute-spu-save"
+                icon="save"
+                color={ButtonColor.primary}
+                funcType={FuncType.flat}
+                onClick={() => this.handleAttributeSave()}
+              >
+                保存所有属性
+              </Button>
+            ]}
+            columns={this.columns}
+          />
         </Content>
       </>
     );

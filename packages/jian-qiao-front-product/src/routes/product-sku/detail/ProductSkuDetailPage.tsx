@@ -2,19 +2,33 @@ import React, { Component } from 'react';
 import { Header, Content } from 'components/Page';
 import { Dispatch } from 'redux';
 import { connect } from 'dva';
-import { DataSet, Button, notification, Form, TextField, Lov, Select, NumberField } from 'choerodon-ui/pro/lib';
+import { DataSet, Button, Form, TextField, Lov, Select, NumberField, Table } from 'choerodon-ui/pro/lib';
 import ProductSkuDS from '../store/ProductSkuDS';
-import { ButtonColor } from 'choerodon-ui/pro/lib/button/enum';
+import { ButtonColor, FuncType } from 'choerodon-ui/pro/lib/button/enum';
 import { Bind } from 'lodash-decorators';
+import notification from 'utils/notification';
+import AttributeDS from '../../product-attribute/store/SkuAttribute'
+import { TableButtonType, ColumnAlign } from 'choerodon-ui/pro/lib/table/enum';
+import { ColumnProps } from 'choerodon-ui/pro/lib/table/Column';
+import { yesOrNoRender } from 'utils/renderer';
+
 
 interface ProductSkuDetailPageProps {
   dispatch: Dispatch<any>;
   match: any,
+  location: any,
 }
 
 @connect()
 export default class ProductSkuDetailPage extends Component<ProductSkuDetailPageProps> {
   state = {};
+
+  productSkuId: any;
+
+  attributeDS = new DataSet({
+    autoQuery: false,
+    ...AttributeDS(),
+  });
 
   detailDS = new DataSet({
     autoQuery: false,
@@ -23,7 +37,28 @@ export default class ProductSkuDetailPage extends Component<ProductSkuDetailPage
 
   async componentDidMount() {
     this.detailDS.queryParameter['productSkuCode'] = this.props.match.params.productSkuCode;
+    this.productSkuId = new URLSearchParams(this.props.location.search).get('productSkuId');
+    this.attributeDS.queryParameter = {
+      productSkuId: this.productSkuId,
+    }
     await this.detailDS.query();
+    await this.attributeDS.query();
+  }
+
+  get columns(): ColumnProps[] {
+    return [
+      { name: 'attributeCode', editor: true, },
+      { name: 'attributeName', editor: true, },
+      { name: 'attributeValue', editor: true, },
+      {
+        name: 'isEnabled',
+        editor: true,
+        renderer: ({ value }) => yesOrNoRender(value),
+        align: ColumnAlign.center,
+      },
+      { name: 'orderSeq', editor: true, align: ColumnAlign.center, },
+      { name: 'remark', editor: true, },
+    ];
   }
 
   @Bind()
@@ -51,6 +86,16 @@ export default class ProductSkuDetailPage extends Component<ProductSkuDetailPage
       return;
     }
     return res;
+  }
+
+  @Bind()
+  async handleAttributeSave() {
+    // 为所有记录添加 spuId
+    this.attributeDS.forEach(record => record.set('productSkuId', this.productSkuId));
+
+    await this.attributeDS.submit();
+
+    await this.attributeDS.query();
   }
 
   render() {
@@ -89,6 +134,23 @@ export default class ProductSkuDetailPage extends Component<ProductSkuDetailPage
             <Select pristine name="isExistStock" />
             <TextField name="imageUrl" />
           </Form>
+          <Table
+            dataSet={this.attributeDS}
+            buttons={[
+              TableButtonType.add,
+              TableButtonType.delete,
+              <Button
+                key="attribute-sku-save"
+                icon="save"
+                color={ButtonColor.primary}
+                funcType={FuncType.flat}
+                onClick={() => this.handleAttributeSave()}
+              >
+                保存所有属性
+              </Button>
+            ]}
+            columns={this.columns}
+          />
         </Content>
       </>
     );

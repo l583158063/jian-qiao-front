@@ -11,6 +11,8 @@ import { Bind } from 'lodash-decorators';
 import notification from 'utils/notification';
 import { routerRedux } from 'dva/router';
 import { ButtonColor, } from 'choerodon-ui/pro/lib/button/enum';
+import { yesOrNoRender } from 'utils/renderer';
+
 
 interface ProductSkuListPageProps {
   dispatch: Dispatch<any>;
@@ -30,11 +32,13 @@ export default class ProductSkuListPage extends Component<ProductSkuListPageProp
   @Bind()
   async handleGotoDetail(record) {
     const productSkuCode = record.get('productSkuCode');
+    const productSkuId = record.get('productSkuId');
     const { dispatch } = this.props;
     const pathname = `/jian-qiao-front-product/product-sku/detail/${productSkuCode}`;
     dispatch(
       routerRedux.push({
         pathname,
+        search: `?productSkuId=${productSkuId}`,
       })
     );
   }
@@ -95,6 +99,12 @@ export default class ProductSkuListPage extends Component<ProductSkuListPageProp
       { name: 'shelfStatus', align: ColumnAlign.center },
       { name: 'price', editor: true, align: ColumnAlign.center, },
       { name: 'stockLevel', editor: true, align: ColumnAlign.center, },
+      {
+        name: 'isExistStock',
+        align: ColumnAlign.center,
+        editor: true,
+        renderer: ({ value }) => yesOrNoRender(value),
+      },
       { name: 'statusCode', editor: true, align: ColumnAlign.center },
     ];
   }

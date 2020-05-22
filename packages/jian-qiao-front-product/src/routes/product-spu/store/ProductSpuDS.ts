@@ -155,6 +155,11 @@ export default (): DataSetProps => ({
       type: 'string' as FieldType,
     },
     {
+      name: 'priceRange',
+      label: '价格区间/元',
+      type: 'string' as FieldType,
+    },
+    {
       name: 'isStopSelling',
       label: '是否停止销售',
       type: 'number' as FieldType,

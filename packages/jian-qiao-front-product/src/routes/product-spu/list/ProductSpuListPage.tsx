@@ -127,18 +127,20 @@ export default class ProductSpuListPage extends Component<ProductSpuListPageProp
         notification.error({
           message: '操作失败',
           description: '',
-        })
+        });
       });
   }
 
   @Bind()
   async handleGotoDetail(record) {
     const productSpuCode = record.get('productSpuCode');
+    const productSpuId = record.get('productSpuId');
     const { dispatch } = this.props;
     const pathname = `/jian-qiao-front-product/product-spu/detail/${productSpuCode}`;
     dispatch(
       routerRedux.push({
         pathname,
+        search: `?productSpuId=${productSpuId}`,
       })
     );
   }
@@ -190,6 +192,7 @@ export default class ProductSpuListPage extends Component<ProductSpuListPageProp
       },
       { name: 'postStatusCode', hidden: true, editor: true, align: ColumnAlign.center },
       { name: 'shelfStatus', editor: true, align: ColumnAlign.center },
+      { name: 'priceRange', align: ColumnAlign.right, },
       { name: 'salesVolume', align: ColumnAlign.right, },
       { name: 'customerGrade', align: ColumnAlign.center, width: 100 },
     ];
