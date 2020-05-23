@@ -1,13 +1,13 @@
 import commonConfig from '@common/config/commonConfig';
 import { DataSetProps } from 'choerodon-ui/pro/lib/data-set/DataSet';
 import { AxiosRequestConfig } from 'axios';
-import { FieldType, DataSetSelection, FieldIgnore } from 'choerodon-ui/pro/lib/data-set/enum';
+import { FieldType } from 'choerodon-ui/pro/lib/data-set/enum';
 
 
 export default (): DataSetProps => ({
   transport: {
     read: (config: AxiosRequestConfig) => {
-      const url = `${commonConfig.HJQG_BACKEND}/v1/product-skus`;
+      const url = `${commonConfig.HJQG_BACKEND}/v1/orders`;
       const axiosConfig: AxiosRequestConfig = {
         ...config,
         url,
@@ -15,31 +15,19 @@ export default (): DataSetProps => ({
       };
       return axiosConfig;
     },
-    submit: ({ data, params }) => {
-      const url = `${commonConfig.HJQG_BACKEND}/v1/product-skus/submit`;
-      const axiosConfig: AxiosRequestConfig = {
-        url,
-        data,
-        params,
-        method: 'POST',
-      };
-      return axiosConfig;
-    },
   },
   pageSize: 10,
-  selection: DataSetSelection.multiple,
-  primaryKey: 'productSkuId',
+  primaryKey: 'orderId',
   fields: [
     {
-      name: 'productSkuId',
-      label: 'skuId',
+      name: 'orderId',
+      label: '订单ID',
       type: 'number' as FieldType,
     },
     {
-      name: 'productSkuCode',
-      label: 'sku编码',
+      name: 'orderCode',
+      label: '订单编码',
       type: 'string' as FieldType,
-      required: true,
       pattern: /^[\dA-Z]*$/,
       defaultValidationMessages: {
         patternMismatch: '只能输入大写字母和数字, 例如: AB0001', // 正则不匹配的报错信息
@@ -53,145 +41,176 @@ export default (): DataSetProps => ({
       },
     },
     {
-      name: 'productSpuObject',
+      name: 'orderStatusCode',
+      type: 'string' as FieldType,
+      label: '订单状态',
+      lookupCode: 'JIANQIAO.ORDER_STATUS',
+    },
+    {
+      name: 'buyerRemarks',
+      label: '买家备注',
+      type: 'string' as FieldType,
+    },
+    {
+      name: 'sellerRemarks',
+      label: '卖家备注',
+      type: 'string' as FieldType,
+    },
+    {
+      name: 'paidTime',
+      label: '付款时间',
+      type: FieldType.dateTime,
+    },
+    {
+      name: 'isPaid',
+      type: 'number' as FieldType,
+      label: '是否付款',
+      lookupCode: 'HPFM.FLAG',
+    },
+    {
+      name: 'paidAmount',
+      type: 'number' as FieldType,
+      label: '实付金额/元',
+    },
+    {
+      name: 'totalAmount',
+      type: 'number' as FieldType,
+      label: '总价/元',
+    },
+    {
+      name: 'addressId',
+      type: 'number' as FieldType,
+      label: '收货地址ID',
+    },
+    {
+      name: 'orderAddress',
       type: 'object' as FieldType,
-      label: '商品spu',
-      lovCode: 'JIANQIAO.PRODUCT_SPU_OBJECT',
-      required: true,
-      textField: 'title',
-      valueField: 'productSpuId',
-      ignore: FieldIgnore.always,
+      label: '收货地址',
     },
     {
-      name: 'productSpuId',
-      label: 'spuId',
-      type: 'number' as FieldType,
-      required: true,
-      bind: 'productSpuObject.productSpuId',
-    },
-    {
-      name: 'spuTitle',
-      label: 'spu名称',
+      name: 'addressCombine',
+      label: '收货地址',
       type: 'string' as FieldType,
-      required: true,
-      bind: 'productSpuObject.title',
+      bind: 'orderAddress.addressCombine'
     },
     {
-      name: 'shelfStatus',
+      name: 'deliveryTypeCode',
+      label: '配送方式',
       type: 'string' as FieldType,
-      label: '上下架状态',
-      bind: 'productSpuObject.shelfStatus',
-      ignore: FieldIgnore.always,
-      lookupCode: 'JIANQIAO.PRODUCT_SHELF_STATUS',
+      lookupCode: 'JIANQIAO.DELIVERY_TYPE'
     },
     {
-      name: 'statusCode',
-      type: 'string' as FieldType,
-      label: '商品状态',
-      required: true,
-      defaultValue: 'ENABLED',
-      lookupCode: 'JIANQIAO.PRODUCT_SKU_STATUS_CODE',
-    },
-    {
-      name: 'title',
-      type: 'string' as FieldType,
-      label: '标题',
-      required: true,
-    },
-    {
-      name: 'recommendation',
-      label: '推荐语',
-      type: 'string' as FieldType,
-    },
-    {
-      name: 'isEliminatePrice',
-      label: '排除价格',
+      name: 'isManualApproved',
+      label: '是否手工审批',
       type: 'number' as FieldType,
       defaultValue: 0,
       lookupCode: 'HPFM.FLAG',
     },
     {
-      name: 'isEliminateStockLevel',
-      label: '排除库存',
-      type: 'number' as FieldType,
-      defaultValue: 0,
-      lookupCode: 'HPFM.FLAG',
+      name: 'processMessage',
+      label: '日志',
+      type: FieldType.string,
     },
     {
-      name: 'isExistStock',
-      label: '是否有库存',
+      name: 'returnOrderId',
+      label: '退货单ID',
       type: FieldType.number,
-      defaultValue: 1,
+    },
+    {
+      name: 'isCommented',
+      label: '是否已评价',
+      type: 'number' as FieldType,
+      defaultValue: 0,
       lookupCode: 'HPFM.FLAG',
     },
     {
-      name: 'isCalculateStockLevel',
-      label: '已计算库存',
+      name: 'invoiceStatusCode',
+      type: 'string' as FieldType,
+      label: '开票状态',
+      // lookupCode: '',
+    },
+    {
+      name: 'isPointAccumulate',
+      label: '是否累计积分',
       type: 'number' as FieldType,
-      defaultValue: 1,
+      defaultValue: 0,
       lookupCode: 'HPFM.FLAG',
     },
     {
-      name: 'habitat',
-      type: 'string' as FieldType,
-      label: '产地',
-    },
-    {
-      name: 'imageUrl',
-      type: 'string' as FieldType,
-      label: '图片',
-      dynamicProps: {
-        // 新增行要设置为只读
-        readOnly: ({ record }) => {
-          //   return record.get('id');
-          return record.status === 'add';
-        },
-      },
-    },
-    {
-      name: 'price',
+      name: 'isManualRecording',
+      label: '是否手工单',
       type: 'number' as FieldType,
-      label: '价格/元',
-      required: true,
-      // validator: async (value): Promise<string> => {
-      //   return new Promise<string>(value).then().catch();
-      // },
+      defaultValue: 0,
+      lookupCode: 'HPFM.FLAG',
     },
     {
-      name: 'stockLevel',
+      name: 'customerId',
       type: 'number' as FieldType,
-      label: '库存',
-      required: true,
+      label: '会员ID',
+    },
+    {
+      name: 'isMajorCustomer',
+      label: '是否大客户订单',
+      type: 'number' as FieldType,
+      defaultValue: 0,
+      lookupCode: 'HPFM.FLAG',
+    },
+    {
+      name: 'isDelete',
+      label: '是否删除',
+      type: 'number' as FieldType,
+      defaultValue: 0,
+      lookupCode: 'HPFM.FLAG',
+    },
+    {
+      name: 'remarks',
+      type: 'string' as FieldType,
+      label: '备注',
+    },
+    {
+      name: 'deliveryTime',
+      type: FieldType.dateTime,
+      label: '快递配送时间',
+    },
+    {
+      name: 'deliveryNumber',
+      type: 'string' as FieldType,
+      label: '快递单号',
+    },
+    {
+      name: 'deliveryCarrier',
+      type: 'string' as FieldType,
+      label: '承运商',
+    },
+    {
+      name: 'isDeliveryDispatch',
+      label: '快递是否已发出',
+      type: 'number' as FieldType,
+      defaultValue: 0,
+      lookupCode: 'HPFM.FLAG',
     },
   ],
   queryFields: [
     {
-      name: 'productSkuCode',
-      label: 'sku编码',
+      name: 'orderCode',
+      label: '订单编码',
       type: 'string' as FieldType,
     },
     {
-      name: 'title',
-      label: 'sku名称',
-      type: 'string' as FieldType,
-    },
-    {
-      name: 'productSpuObject',
-      type: 'object' as FieldType,
-      label: '商品spu',
-      lovCode: 'JIANQIAO.PRODUCT_SPU_OBJECT',
-      ignore: FieldIgnore.always,
-    },
-    {
-      name: 'productSpuId',
-      label: 'spuId',
+      name: 'customerId',
+      label: '会员ID',
       type: 'number' as FieldType,
-      bind: 'productSpuObject.productSpuId',
     },
     {
-      name: 'isExistStock',
-      label: '是否有库存',
-      type: FieldType.number,
+      name: 'isPaid',
+      label: '是否付款',
+      type: 'number' as FieldType,
+      lookupCode: 'HPFM.FLAG',
+    },
+    {
+      name: 'isDeliveryDispatch',
+      label: '快递是否已发出',
+      type: 'number' as FieldType,
       lookupCode: 'HPFM.FLAG',
     },
   ],

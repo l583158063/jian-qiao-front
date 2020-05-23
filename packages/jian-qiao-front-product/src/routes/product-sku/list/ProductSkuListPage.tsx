@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Header, Content, } from 'components/Page';
 import { Dispatch } from 'redux';
 import { connect } from 'dva';
-import { DataSet, Table, Button, Lov, } from "choerodon-ui/pro";
+import { DataSet, Table, Button, Lov, Currency, } from "choerodon-ui/pro";
 import ProductSkuDS from "../store/ProductSkuDS";
 import { Buttons } from 'choerodon-ui/pro/lib/table/Table';
 import { ColumnProps } from 'choerodon-ui/pro/lib/table/Column';
@@ -98,7 +98,13 @@ export default class ProductSkuListPage extends Component<ProductSkuListPageProp
         editor: () => <Lov noCache />,
       },
       { name: 'shelfStatus', align: ColumnAlign.center },
-      { name: 'price', editor: true, align: ColumnAlign.center, },
+      {
+        name: 'price',
+        editor: <Currency
+          currency='CNY'
+        />,
+        align: ColumnAlign.right,
+      },
       // {
       //   name: 'imageUrl', renderer: ({ record }) => {
       //     return <Upload

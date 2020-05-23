@@ -10,7 +10,7 @@ const config: RoutersConfig = [
         component: () => import('../routes/order/list/OrderListPage'),
       },
       {
-        path: '/jian-qiao-front-order/order/order-detail',
+        path: '/jian-qiao-front-order/order/order-detail/:orderCode',
         component: () => import('../routes/order/detail/OrderDetailPage'),
       },
     ],
@@ -23,7 +23,7 @@ const config: RoutersConfig = [
         component: () => import('../routes/consignment/list/ConsignmentListPage'),
       },
       {
-        path: '/jian-qiao-front-order/consignment/consignment-detail',
+        path: '/jian-qiao-front-order/consignment/consignment-detail/:consignmentCode',
         component: () => import('../routes/consignment/detail/ConsignmentDetailPage'),
       },
     ],

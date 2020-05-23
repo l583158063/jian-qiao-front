@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Header, Content } from 'components/Page';
 import { Dispatch } from 'redux';
 import { connect } from 'dva';
-import { DataSet, Button, Form, TextField, Lov, Select, NumberField, Table, Upload } from 'choerodon-ui/pro/lib';
+import { DataSet, Button, Form, TextField, Lov, Select, NumberField, Table, Upload, Currency } from 'choerodon-ui/pro/lib';
 import ProductSkuDS from '../store/ProductSkuDS';
 import { ButtonColor, FuncType } from 'choerodon-ui/pro/lib/button/enum';
 import { Bind } from 'lodash-decorators';
@@ -149,7 +149,7 @@ export default class ProductSkuDetailPage extends Component<ProductSkuDetailPage
             <TextField pristine name="productSkuCode" />
             <Lov name="productSpuObject" />
             <TextField name="title" />
-            <NumberField name="price" />
+            <Currency name="price" currency='CNY' />
             <NumberField name="stockLevel" />
             <TextField pristine name="shelfStatus" />
             <Select pristine name="statusCode" />
