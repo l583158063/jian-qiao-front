@@ -138,7 +138,14 @@ export default (): DataSetProps => ({
     {
       name: 'imageUrl',
       type: 'string' as FieldType,
-      label: '图片url',
+      label: '图片',
+      dynamicProps: {
+        // 新增行要设置为只读
+        readOnly: ({ record }) => {
+          //   return record.get('id');
+          return record.status === 'add';
+        },
+      },
     },
     {
       name: 'price',

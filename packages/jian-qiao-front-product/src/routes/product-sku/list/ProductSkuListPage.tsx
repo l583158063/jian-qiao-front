@@ -11,8 +11,9 @@ import { Bind } from 'lodash-decorators';
 import notification from 'utils/notification';
 import { routerRedux } from 'dva/router';
 import { ButtonColor, } from 'choerodon-ui/pro/lib/button/enum';
-import { yesOrNoRender } from 'utils/renderer';
-
+// import { yesOrNoRender } from 'utils/renderer';
+// import { getAccessToken } from 'utils/utils';
+// import commonConfig from '@common/config/commonConfig';
 
 interface ProductSkuListPageProps {
   dispatch: Dispatch<any>;
@@ -98,13 +99,24 @@ export default class ProductSkuListPage extends Component<ProductSkuListPageProp
       },
       { name: 'shelfStatus', align: ColumnAlign.center },
       { name: 'price', editor: true, align: ColumnAlign.center, },
+      // {
+      //   name: 'imageUrl', renderer: ({ record }) => {
+      //     return <Upload
+      //       name='imageUrl'
+      //       record={record || undefined}
+      //       action={`${process.env.API_HOST}${commonConfig.HJQG_BACKEND}/v1/product-skus/image-upload`}
+      //       headers={{ Authorization: `bearer ${getAccessToken()}` }}
+      //       accept={['image/*']}
+      //     />;
+      //   },
+      // },
       { name: 'stockLevel', editor: true, align: ColumnAlign.center, },
-      {
-        name: 'isExistStock',
-        align: ColumnAlign.center,
-        editor: true,
-        renderer: ({ value }) => yesOrNoRender(value),
-      },
+      // {
+      //   name: 'isExistStock',
+      //   align: ColumnAlign.center,
+      //   editor: true,
+      //   renderer: ({ value }) => yesOrNoRender(value),
+      // },
       { name: 'statusCode', editor: true, align: ColumnAlign.center },
     ];
   }

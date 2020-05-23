@@ -3,7 +3,7 @@ import { Header, Content } from 'components/Page';
 import { Dispatch } from 'redux';
 import { connect } from 'dva';
 import ProductSpuDS from '../store/ProductSpuDS';
-import AttributeDS from '../../product-attribute/store/SpuAttribute'
+import AttributeDS from '../../product-attribute/store/SpuAttributeDS'
 import { DataSet, Form, TextField, Button, Lov, Select, DateTimePicker, Table } from 'choerodon-ui/pro';
 import { ButtonColor, FuncType } from 'choerodon-ui/pro/lib/button/enum';
 import { Bind } from 'lodash-decorators';

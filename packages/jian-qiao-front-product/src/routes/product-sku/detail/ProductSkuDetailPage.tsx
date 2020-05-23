@@ -2,21 +2,24 @@ import React, { Component } from 'react';
 import { Header, Content } from 'components/Page';
 import { Dispatch } from 'redux';
 import { connect } from 'dva';
-import { DataSet, Button, Form, TextField, Lov, Select, NumberField, Table } from 'choerodon-ui/pro/lib';
+import { DataSet, Button, Form, TextField, Lov, Select, NumberField, Table, Upload } from 'choerodon-ui/pro/lib';
 import ProductSkuDS from '../store/ProductSkuDS';
 import { ButtonColor, FuncType } from 'choerodon-ui/pro/lib/button/enum';
 import { Bind } from 'lodash-decorators';
 import notification from 'utils/notification';
-import AttributeDS from '../../product-attribute/store/SkuAttribute'
+import AttributeDS from '../../product-attribute/store/SkuAttributeDS'
 import { TableButtonType, ColumnAlign } from 'choerodon-ui/pro/lib/table/enum';
 import { ColumnProps } from 'choerodon-ui/pro/lib/table/Column';
 import { yesOrNoRender } from 'utils/renderer';
+import { getAccessToken } from 'utils/utils';
+import commonConfig from '@common/config/commonConfig';
 
 
 interface ProductSkuDetailPageProps {
   dispatch: Dispatch<any>;
   match: any,
   location: any,
+  productSkuId: any,
 }
 
 @connect()
@@ -40,7 +43,7 @@ export default class ProductSkuDetailPage extends Component<ProductSkuDetailPage
     this.productSkuId = new URLSearchParams(this.props.location.search).get('productSkuId');
     this.attributeDS.queryParameter = {
       productSkuId: this.productSkuId,
-    }
+    };
     await this.detailDS.query();
     await this.attributeDS.query();
   }
@@ -98,6 +101,30 @@ export default class ProductSkuDetailPage extends Component<ProductSkuDetailPage
     await this.attributeDS.query();
   }
 
+  uploadProps = {
+    name: 'imageUrl',
+    headers: {
+      Authorization: `bearer ${getAccessToken()}`,
+    },
+    action: `${process.env.API_HOST}${commonConfig.HJQG_BACKEND}/v1/product-skus/image-upload`,
+    data: {
+      productSkuId: new URLSearchParams(this.props.location.search).get('productSkuId'),
+    },
+    accept: ['image/*'],
+    onUploadSuccess: () => {
+      notification.success({
+        message: '上传成功',
+        description: '',
+      });
+    },
+    onUploadError: () => {
+      notification.error({
+        message: '上传失败',
+        description: '',
+      });
+    },
+  };
+
   render() {
     return (
       <>
@@ -132,7 +159,7 @@ export default class ProductSkuDetailPage extends Component<ProductSkuDetailPage
             <TextField name="recommendation" />
             <TextField name="habitat" />
             <Select pristine name="isExistStock" />
-            <TextField name="imageUrl" />
+            <Upload {...this.uploadProps} />
           </Form>
           <Table
             dataSet={this.attributeDS}
