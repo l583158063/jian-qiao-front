@@ -112,11 +112,6 @@ export default (): DataSetProps => ({
       type: FieldType.string,
     },
     {
-      name: 'returnOrderId',
-      label: '退货单ID',
-      type: FieldType.number,
-    },
-    {
       name: 'isCommented',
       label: '是否已评价',
       type: 'number' as FieldType,
@@ -181,6 +176,16 @@ export default (): DataSetProps => ({
       name: 'deliveryCarrier',
       type: 'string' as FieldType,
       label: '承运商',
+    },
+    {
+      name: 'consignmentCode',
+      type: 'string' as FieldType,
+      label: '配货单编号',
+    },
+    {
+      name: 'refundOrderCode',
+      type: 'string' as FieldType,
+      label: '退款单编号',
     },
     {
       name: 'isDeliveryDispatch',

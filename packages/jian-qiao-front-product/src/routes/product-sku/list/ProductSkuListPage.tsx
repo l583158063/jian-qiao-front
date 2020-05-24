@@ -10,7 +10,7 @@ import { TableButtonType, ColumnLock, ColumnAlign, } from 'choerodon-ui/pro/lib/
 import { Bind } from 'lodash-decorators';
 import notification from 'utils/notification';
 import { routerRedux } from 'dva/router';
-import { ButtonColor, } from 'choerodon-ui/pro/lib/button/enum';
+import { ButtonColor, FuncType, } from 'choerodon-ui/pro/lib/button/enum';
 // import { yesOrNoRender } from 'utils/renderer';
 // import { getAccessToken } from 'utils/utils';
 // import commonConfig from '@common/config/commonConfig';
@@ -85,7 +85,11 @@ export default class ProductSkuListPage extends Component<ProductSkuListPageProp
         header: '查看',
         renderer: ({ record }) => {
           return (
-            <Button onClick={() => this.handleGotoDetail(record)}>
+            <Button
+              onClick={() => this.handleGotoDetail(record)}
+              icon='link'
+              funcType={FuncType.flat}
+            >
               详情
             </Button>
           );

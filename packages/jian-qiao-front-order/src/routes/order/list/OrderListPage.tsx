@@ -9,6 +9,7 @@ import { routerRedux } from 'dva/router';
 import { ColumnProps } from 'choerodon-ui/pro/lib/table/Column';
 import { yesOrNoRender } from 'utils/renderer';
 import { ColumnAlign, ColumnLock } from 'choerodon-ui/pro/lib/table/enum';
+import { FuncType } from 'choerodon-ui/pro/lib/button/enum';
 
 
 interface OrderListPageProps {
@@ -26,11 +27,13 @@ export default class OrderListPage extends Component<OrderListPageProps> {
   @Bind()
   async handleGotoDetail(record) {
     const orderCode = record.get('orderCode');
+    const orderId = record.get('orderId');
     const { dispatch } = this.props;
     const pathname = `/jian-qiao-front-order/order/order-detail/${orderCode}`;
     dispatch(
       routerRedux.push({
         pathname,
+        search: `?orderId=${orderId}`,
       })
     );
   }
@@ -43,7 +46,11 @@ export default class OrderListPage extends Component<OrderListPageProps> {
         header: '查看',
         renderer: ({ record }) => {
           return (
-            <Button onClick={() => this.handleGotoDetail(record)}>
+            <Button
+              onClick={() => this.handleGotoDetail(record)}
+              funcType={FuncType.flat}
+              icon='link'
+            >
               详情
             </Button>
           );

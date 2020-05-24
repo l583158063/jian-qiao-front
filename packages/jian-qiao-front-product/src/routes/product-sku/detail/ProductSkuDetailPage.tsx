@@ -162,6 +162,7 @@ export default class ProductSkuDetailPage extends Component<ProductSkuDetailPage
             <Upload {...this.uploadProps} />
           </Form>
           <Table
+            header='商品sku属性表'
             dataSet={this.attributeDS}
             buttons={[
               TableButtonType.add,

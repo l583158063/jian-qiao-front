@@ -54,7 +54,7 @@ export default () => ({
       type: 'string',
       required: true,
       defaultValue: 1,
-      lookupCode: 'JIANQIAO.ACTIVE',
+      lookupCode: 'HPFM.FLAG',
     },
     {
       name: 'orderSeq',
@@ -82,7 +82,7 @@ export default () => ({
       name: 'isActive',
       label: '启用标识',
       type: 'number',
-      lookupCode: 'JIANQIAO.ACTIVE',
+      lookupCode: 'HPFM.FLAG',
     },
   ],
 });

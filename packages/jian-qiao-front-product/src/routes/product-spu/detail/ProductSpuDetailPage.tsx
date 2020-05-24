@@ -69,6 +69,7 @@ export default class ProductSpuDetailPage extends Component<ProductSpuDetailPage
       });
       return;
     }
+    await this.detailDS.query();
     return res;
   }
 
@@ -136,6 +137,7 @@ export default class ProductSpuDetailPage extends Component<ProductSpuDetailPage
             <DateTimePicker pristine name="offlineDate" />
           </Form>
           <Table
+            header='商品spu属性表'
             dataSet={this.attributeDS}
             buttons={[
               TableButtonType.add,

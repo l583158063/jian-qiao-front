@@ -14,11 +14,11 @@ const config: RoutersConfig = [
         component: () => import('../routes/refund-order/list/RefundOrderListPage'),
       },
       {
-        path: '/jian-qiao-front-fulfilment/refund-order/refund-order-detail',
+        path: '/jian-qiao-front-fulfilment/refund-order/refund-order-detail/:refundOrderCode',
         component: () => import('../routes/refund-order/detail/RefundOrderDetailPage'),
       },
     ],
-  },  
+  },
 ];
 
 export default config;

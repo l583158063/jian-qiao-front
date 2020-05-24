@@ -37,9 +37,9 @@ export default (): DataSetProps => ({
       type: 'number' as FieldType,
     },
     {
-      name: 'productSkuId',
-      label: '商品skuID',
-      type: 'number' as FieldType,
+      name: 'productSkuCode',
+      label: '商品sku编码',
+      type: 'string' as FieldType,
     },
     {
       name: 'title',

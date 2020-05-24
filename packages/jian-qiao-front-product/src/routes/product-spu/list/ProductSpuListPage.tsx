@@ -182,7 +182,11 @@ export default class ProductSpuListPage extends Component<ProductSpuListPageProp
         header: '查看',
         renderer: ({ record }) => {
           return (
-            <Button onClick={() => this.handleGotoDetail(record)}>
+            <Button
+              onClick={() => this.handleGotoDetail(record)}
+              icon='link'
+              funcType={FuncType.flat}
+            >
               详情
             </Button>
           );
