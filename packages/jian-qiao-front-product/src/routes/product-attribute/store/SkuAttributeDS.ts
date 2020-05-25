@@ -43,9 +43,9 @@ export default (): DataSetProps => ({
       type: 'string' as FieldType,
       label: 'sku属性编码',
       required: true,
-      pattern: /^[\dA-Z]*$/,
+      pattern: /^[_\dA-Z]*$/,
       defaultValidationMessages: {
-        patternMismatch: '只能输入大写字母和数字, 例如: AB0001', // 正则不匹配的报错信息
+        patternMismatch: '只能输入大写字母数字和下划线, 例如: AB_0001', // 正则不匹配的报错信息
       },
       dynamicProps: {
         // 非新增行要设置为只读

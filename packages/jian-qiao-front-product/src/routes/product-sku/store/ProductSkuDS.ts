@@ -139,6 +139,7 @@ export default (): DataSetProps => ({
       name: 'imageUrl',
       type: 'string' as FieldType,
       label: '图片',
+      ignore: FieldIgnore.always,
     },
     {
       name: 'price',

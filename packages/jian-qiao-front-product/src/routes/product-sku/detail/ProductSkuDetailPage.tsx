@@ -88,6 +88,7 @@ export default class ProductSkuDetailPage extends Component<ProductSkuDetailPage
       });
       return;
     }
+    await this.detailDS.query();
     return res;
   }
 
@@ -111,17 +112,20 @@ export default class ProductSkuDetailPage extends Component<ProductSkuDetailPage
       productSkuId: new URLSearchParams(this.props.location.search).get('productSkuId'),
     },
     accept: ['image/*'],
-    onUploadSuccess: () => {
+    onUploadSuccess: (response) => {
+      console.log(response);
       notification.success({
         message: '上传成功',
         description: '',
       });
+      this.detailDS.query();
     },
-    onUploadError: () => {
+    onUploadError: (error) => {
       notification.error({
-        message: '上传失败',
+        message: '上传失败: ' + error,
         description: '',
       });
+      this.detailDS.query();
     },
   };
 
@@ -151,11 +155,11 @@ export default class ProductSkuDetailPage extends Component<ProductSkuDetailPage
             <TextField name="title" />
             <Currency name="price" currency='CNY' />
             <NumberField name="stockLevel" />
-            <TextField pristine name="shelfStatus" />
+            <Select pristine name="shelfStatus" />
             <Select pristine name="statusCode" />
             {/* <Select name="isEliminatePrice" /> */}
             {/* <Select name="isEliminateStockLevel" /> */}
-            <Select name="isCalculateStockLevel" />
+            {/* <Select name="isCalculateStockLevel" /> */}
             <TextField name="recommendation" />
             <TextField name="habitat" />
             <Select pristine name="isExistStock" />

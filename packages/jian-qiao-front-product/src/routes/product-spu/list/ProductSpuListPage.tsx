@@ -195,7 +195,7 @@ export default class ProductSpuListPage extends Component<ProductSpuListPageProp
         align: ColumnAlign.center,
       },
       { name: 'postStatusCode', hidden: true, editor: true, align: ColumnAlign.center },
-      { name: 'shelfStatus', editor: true, align: ColumnAlign.center },
+      { name: 'shelfStatus', align: ColumnAlign.center },
       { name: 'priceRange', align: ColumnAlign.right, },
       { name: 'salesVolume', align: ColumnAlign.right, },
       { name: 'customerGrade', align: ColumnAlign.center, width: 100 },
