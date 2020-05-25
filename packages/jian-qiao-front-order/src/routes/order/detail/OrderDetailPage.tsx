@@ -209,7 +209,7 @@ export default class OrderDetailPage extends Component<OrderDetailPageProps> {
             <Currency pristine name='paidAmount' currency='CNY' />
             <Currency pristine name='totalAmount' currency='CNY' />
             <TextField pristine name='addressCombine' />
-            <TextField pristine name='deliveryTypeCode' />
+            <Select pristine name='deliveryTypeCode' />
             <Select pristine name='isManualApproved' />
             <Select pristine name='isCommented' />
             <TextField pristine name='customerId' />

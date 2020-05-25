@@ -25,6 +25,11 @@ export default (): DataSetProps => ({
       label: '配货单ID',
     },
     {
+      name: 'orderId',
+      type: 'number' as FieldType,
+      label: '订单ID',
+    },
+    {
       name: 'orderCode',
       type: 'string' as FieldType,
       label: '订单编号',
@@ -41,6 +46,12 @@ export default (): DataSetProps => ({
       type: 'string' as FieldType,
       label: '配货单状态',
       lookupCode: 'JIANQIAO.CONSIGNMENT_STATUS',
+    },
+    {
+      name: 'deliveryTypeCode',
+      type: 'string' as FieldType,
+      label: '配送方式',
+      lookupCode: 'JIANQIAO.DELIVERY_TYPE',
     },
     {
       name: 'approvedDate',
@@ -77,6 +88,7 @@ export default (): DataSetProps => ({
       name: 'deliveryCarrier',
       type: FieldType.string,
       label: '承运商',
+      lookupCode: 'JIANQIAO.DELIVERY_CARRIER',
     },
     {
       name: 'deliveryCost',

@@ -40,7 +40,7 @@ export default class OrderListPage extends Component<OrderListPageProps> {
 
   get columns(): ColumnProps[] {
     return [
-      { name: 'orderCode', },
+      { name: 'orderCode', align: ColumnAlign.center, },
       { name: 'orderStatusCode', align: ColumnAlign.center, },
       {
         header: '查看',
