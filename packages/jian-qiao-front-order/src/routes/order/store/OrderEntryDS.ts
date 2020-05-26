@@ -18,7 +18,7 @@ export default (): DataSetProps => ({
     },
     {
       name: 'entryNumber',
-      label: '订单行序号',
+      label: '序号',
       type: 'number' as FieldType,
     },
     {
@@ -54,8 +54,8 @@ export default (): DataSetProps => ({
     },
     {
       name: 'actualPaidAmount',
-      type: 'number' as FieldType,
-      label: '会员实际支付金额/元',
+      type: FieldType.currency,
+      label: '支付金额/元',
     },
     {
       name: 'returnOrderEntryId',
@@ -73,7 +73,7 @@ export default (): DataSetProps => ({
       name: 'statusCode',
       label: '订单行状态',
       type: 'string' as FieldType,
-      lookupCode: 'JIANQIAO.ORDER_STATUS',
+      lookupCode: 'JIANQIAO.ORDER_ENTRY_STATUS',
     },
   ],
 });

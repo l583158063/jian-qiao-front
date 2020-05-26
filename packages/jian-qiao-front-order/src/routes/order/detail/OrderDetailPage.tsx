@@ -9,7 +9,7 @@ import { Bind } from 'lodash-decorators';
 import { ButtonColor } from 'choerodon-ui/pro/lib/button/enum';
 import { ColumnProps } from 'choerodon-ui/pro/lib/table/Column';
 import { ColumnAlign } from 'choerodon-ui/pro/lib/table/enum';
-import { yesOrNoRender } from 'utils/renderer';
+// import { yesOrNoRender } from 'utils/renderer';
 import { routerRedux } from 'dva/router';
 import notification from 'utils/notification';
 import { getAccessToken } from 'utils/utils';
@@ -145,17 +145,17 @@ export default class OrderDetailPage extends Component<OrderDetailPageProps> {
   get entryColumns(): ColumnProps[] {
     return [
       { name: 'entryNumber', align: ColumnAlign.center, },
-      { name: 'orderEntryId', align: ColumnAlign.center, },
+      // { name: 'orderEntryId', align: ColumnAlign.center, },
       { name: 'productSkuCode', align: ColumnAlign.center, },
       { name: 'title', align: ColumnAlign.center, },
       { name: 'unitPrice', align: ColumnAlign.center, },
       { name: 'quantity', align: ColumnAlign.center, },
       { name: 'actualPaidAmount', align: ColumnAlign.center, },
-      {
-        name: 'isReturned',
-        renderer: ({ value }) => yesOrNoRender(value),
-        align: ColumnAlign.center,
-      },
+      // {
+      //   name: 'isReturned',
+      //   renderer: ({ value }) => yesOrNoRender(value),
+      //   align: ColumnAlign.center,
+      // },
       { name: 'statusCode', align: ColumnAlign.center, },
     ];
   }
@@ -168,7 +168,8 @@ export default class OrderDetailPage extends Component<OrderDetailPageProps> {
           backPath='/jian-qiao-front-order/order/order-list'
         >
           <Button
-            hidden={this.state.isRefunded}
+            hidden={true}
+            // hidden={this.state.isRefunded}
             color={ButtonColor.primary}
             onClick={this.handleGotoRefundDetail}
             disabled={!this.state.isRefunded}

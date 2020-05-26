@@ -138,6 +138,7 @@ export default class ProductSpuDetailPage extends Component<ProductSpuDetailPage
           </Form>
           <Table
             header='商品spu属性表'
+            hidden={true}
             dataSet={this.attributeDS}
             buttons={[
               TableButtonType.add,
